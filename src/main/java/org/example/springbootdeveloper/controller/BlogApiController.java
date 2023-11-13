@@ -3,6 +3,7 @@ package org.example.springbootdeveloper.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.springbootdeveloper.domain.Article;
 import org.example.springbootdeveloper.dto.ArticleResponse;
+import org.example.springbootdeveloper.dto.UpdateArticleRequest;
 import org.example.springbootdeveloper.service.BlogService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +18,15 @@ public class BlogApiController {
     private final BlogService blogService;
 
     @PostMapping("/api/articles")
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request){
+    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
         Article saveArticle = blogService.save(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(saveArticle);
 
     }
+
     @GetMapping("/api/articles")
-    public ResponseEntity<List<ArticleResponse>> findAllArticles(){
+    public ResponseEntity<List<ArticleResponse>> findAllArticles() {
         List<ArticleResponse> articles = blogService.finAll()
                 .stream()
                 .map(ArticleResponse::new)
@@ -35,31 +37,28 @@ public class BlogApiController {
     }
 
 
-
-
-
-
-
-    /*
     @GetMapping("/api/articles/{id}")
-    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id){
+    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {
         Article article = blogService.findById(id);
 
-        return  ResponseEntity.ok()
+        return ResponseEntity.ok()
                 .body(new ArticleResponse(article));
     }
 
-     */
-
-    /*
     @DeleteMapping("/api/articles/{id}")
-    public ResponseEntity<Void> deleteArticle(@PathVariable long id){
+    public ResponseEntity<Void> deleteArticle(@PathVariable long id) {
         blogService.delete(id);
 
         return ResponseEntity.ok()
                 .build();
     }
-    */
 
+    @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable long id, @RequestBody UpdateArticleRequest request) {
 
+        Article updateArticle = blogService.update(id, request);
+
+        return ResponseEntity.ok()
+                .body(updateArticle);
+    }
 }
