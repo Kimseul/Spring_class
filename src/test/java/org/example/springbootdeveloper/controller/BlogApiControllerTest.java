@@ -26,8 +26,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import java.util.List;
 
-
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @AutoConfigureMockMvc
 class BlogApiControllerTest {
@@ -123,6 +121,8 @@ class BlogApiControllerTest {
                 .andExpect(jsonPath("$.content").value(content))
                 .andExpect(jsonPath("$.title").value(title));
     }
+
+
     @DisplayName("deleteArticle: 블로그 글 삭제에 성공한다.")
     @Test
     public void deleteArticle() throws Exception{
@@ -145,6 +145,9 @@ class BlogApiControllerTest {
 
         assertThat(articles).isEmpty();
     }
+
+
+
 
     @DisplayName("UpdateArticle: 블로그 글 수정에 성공한다.")
     @Test
@@ -176,6 +179,8 @@ class BlogApiControllerTest {
         assertThat(article.getTitle()).isEqualTo(newTitle);
         assertThat(article.getContent()).isEqualTo(newContent);
     }
+
+
 
 
 }
