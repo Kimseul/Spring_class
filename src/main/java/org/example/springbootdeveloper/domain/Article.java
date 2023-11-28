@@ -26,6 +26,14 @@ public class Article {
     @Column(name = "content",nullable = false)
     private String content;
 
+    @CreatedDate
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     @Builder
     public Article(String title, String content) {
         this.title = title;
@@ -37,12 +45,6 @@ public class Article {
         this.content = content;
     }
 
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createAt;
 
-    @LastModifiedDate
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
 
 }
