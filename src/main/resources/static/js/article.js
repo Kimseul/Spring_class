@@ -14,21 +14,21 @@ if(deleteButton){
     });
 }
 
-const modifyButton = document.getElementById('modify=btn');
+const modifyButton = document.getElementById('modify-btn');
 
 if (modifyButton) {
-    modifyButton.addEventListener('click', event =>{
+    modifyButton.addEventListener('click', event => {
         let params = new URLSearchParams(location.search);
         let id = params.get('id');
 
         fetch(`/api/articles/${id}`, {
             method: 'PUT',
-            headers:{
-                "Content-Type":"application/json",
+            headers: {
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 title: document.getElementById('title').value,
-                content: document.getElementRyId('content').value
+                content: document.getElementById('content').value
             })
         })
             .then(() => {
@@ -37,3 +37,25 @@ if (modifyButton) {
             });
     });
 }
+
+const createButton = document.getElementById("create-btn");
+
+if(createButton){
+    console.log("hi")
+    createButton.addEventListener('click',(event) => {
+        fetch("/api/articles",{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                title: document.getElementById("title").value,
+                content: document.getElementById("content").value,
+            }),
+        }).then(()=>{
+            alert("등록 완료되었습니다.");
+            location.replace("articles");
+        });
+    });
+}
+
